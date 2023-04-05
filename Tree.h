@@ -35,7 +35,7 @@ class Tree {
         ~Tree();
         Tree(const Tree& obj);
 
-        void print(const Node* obj,int level)const;
+        void print_Tree(const Node * p,int level)const;
         Node* insert(struct Node* _root , int key);//вставка элемента
         Node* search(int key,const Node* obj);//проверка наличия элемента
         bool contains(int key);//проверка наличия элемента

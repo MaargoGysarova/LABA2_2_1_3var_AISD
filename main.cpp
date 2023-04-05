@@ -81,7 +81,7 @@ void check_root(Tree &tmp){
 
 //print tree
 void print_tree(Tree &tmp){
-    tmp.print(tmp.return_root(),3);
+    tmp.print_Tree(tmp.return_root(),3);
 }
 
 

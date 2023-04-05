@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cstdio>
+#include <ctime>
 #include "Tree.h"
 using namespace std;
 
@@ -66,15 +68,19 @@ Tree::~Tree() {
     }
 }
 
-void Tree::print(const Node* obj,int level = 3)const {
-    if (root)
+void Tree::print_Tree(const Node * p,int level)const {
+    if(p)
     {
-        print(root->_right, level + 1);
-        for (int i = 0; i < level; i++) cout ? " ";
-        cout<< root->_data << endl;
-        print(root->_left, level + 1);
+        print_Tree(p->_left,level + 1);
+        for(int i = 0;i< level;i++) cout<<"   ";
+        cout << p->_data << endl;
+        print_Tree(p->_right,level + 1);
     }
+
+
+
 }
+
 
 Node* Tree::search(int key,const Node* obj) {
     if(obj== nullptr){
