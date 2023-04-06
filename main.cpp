@@ -2,8 +2,22 @@
 #include <cstdio>
 #include <ctime>
 #include "Tree.h"
+#include <vector>
 using namespace std;
 
+vector<int> task(std::vector<int> &vec){
+    Tree tmp;
+    std::vector<int> result;
+    for(int i=0;i<vec.size();i++){
+        if(tmp.contains(vec[i])){
+            result.push_back(vec[i]);
+        }
+        else{
+            tmp.insert(tmp.return_root(),vec[i]);
+        }
+    }
+    return result;
+}
 int check(){
     int m;
     while(!(cin >> m)){
@@ -184,36 +198,53 @@ void create_file(int loop){
     }
 }
 
+
+
 int main() {
-    Tree tmp;
-    int m1;
-    while(true){
-        m1 = menu();
-        switch (m1) {
-            case 1:
-                create_new_tree(tmp);
-                break;
-            case 2:
-                add_root(tmp);
-                break;
-            case 3:
-                delete_root(tmp);
-                break;
-            case 4:
-                check_root(tmp);
-                break;
-            case 5:
-                print_tree(tmp);
-                break;
-            case 6:
-                return 0;
-            default:
-                cout << "Input correct value" << endl;
-                break;
+    //выбор из двух вариантов
+    int loop;
+    cout << "Enter 1 to check task" << endl;
+    cout << "Enter 2 to work with tree" << endl;
+    cin >> loop;
+    if (loop == 1) {
+        std::vector<int> vec = {3,2,2,4,5,22,3};
+        std::vector<int> result = task(vec);
+        for(int i=0;i<result.size();i++){
+            cout << result[i] << " ";
+        }
+        return 0;
+    }
+    if (loop == 2) {
+
+        Tree tmp;
+        int m1;
+        while (true) {
+            m1 = menu();
+            switch (m1) {
+                case 1:
+                    create_new_tree(tmp);
+                    break;
+                case 2:
+                    add_root(tmp);
+                    break;
+                case 3:
+                    delete_root(tmp);
+                    break;
+                case 4:
+                    check_root(tmp);
+                    break;
+                case 5:
+                    print_tree(tmp);
+                    break;
+                case 6:
+                    return 0;
+                default:
+                    cout << "Input correct value" << endl;
+                    break;
+            }
         }
     }
 }
-
 
 
 
