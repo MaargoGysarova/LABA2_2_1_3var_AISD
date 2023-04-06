@@ -1,6 +1,3 @@
-//
-// Created by Даниил Вольгов on 06.04.2023.
-//
 
 #include "Tree_task1.h"
 using namespace std;
