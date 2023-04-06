@@ -8,9 +8,14 @@ using namespace std;
 vector<int> task(std::vector<int> &vec){
     Tree tmp;
     std::vector<int> result;
-    for(int i=0;i<vec.size();i++){
+    tmp.insert(tmp.return_root(),vec[0]);
+    for(int i=1;i<vec.size();i++){
         if(tmp.contains(vec[i])){
+            bool found = std::find(result.begin(), result.end(), vec[i]) != result.end();
+            if(found){}
+            else{
             result.push_back(vec[i]);
+            }
         }
         else{
             tmp.insert(tmp.return_root(),vec[i]);
@@ -18,6 +23,22 @@ vector<int> task(std::vector<int> &vec){
     }
     return result;
 }
+
+//функция заполнения вектора
+void fill_vector(vector<int> &vec){
+    int size;
+    cout << "Enter the size of vector: ";
+    cin >> size;
+    int i=0;
+    while(i<size){
+        int tmp;
+        cout << "Enter the element["<<i<<"] of vector: ";
+        cin >> tmp;
+        vec.push_back(tmp);
+        i++;
+    }
+}
+
 int check(){
     int m;
     while(!(cin >> m)){
@@ -201,14 +222,14 @@ void create_file(int loop){
 
 
 int main() {
-    //выбор из двух вариантов
     int loop;
     cout << "Enter 1 to check task" << endl;
     cout << "Enter 2 to work with tree" << endl;
     cin >> loop;
     if (loop == 1) {
-        std::vector<int> vec = {3,2,2,4,5,22,3};
-        std::vector<int> result = task(vec);
+        vector<int> vec = {};
+        fill_vector(vec);
+        vector<int> result = task(vec);
         for(int i=0;i<result.size();i++){
             cout << result[i] << " ";
         }
