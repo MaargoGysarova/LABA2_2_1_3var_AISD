@@ -127,32 +127,35 @@ int lcg(){
 }
 
 //создание дерева и заполнение его случ значениями
-Tree create_tree(Tree &tmp, int size_tree){
-    int i =0;
+void create_tree(Tree &tmp, int size_tree){
+    int i =1;
     int key = lcg();
+    tmp.insert(tmp.return_root(),key);
     while(i < size_tree){
         while(!tmp.contains(key)){key = lcg();}
         tmp.insert(tmp.return_root(),lcg());
         i++;
     }
-    return tmp;
+
 }
 
 void insert_time_full(int size_tree){
+    Tree tmp;
     clock_t start = clock();
-    Tree tmp =create_tree(tmp,size_tree);
+    create_tree(tmp,size_tree);
     clock_t end = clock();
     double seconds = (double)(end - start) / CLOCKS_PER_SEC;
     printf("The time: %f seconds\n", seconds);
     //запись в файл
     FILE *file;
     file = fopen("insert_time_full.txt", "a+");
-    fprintf(file, "%d %f\n", size_tree, seconds);
+    fprintf(file, "%d;%f\n", size_tree, seconds);
     fclose(file);
 }
 
 void search_time(int size_tree){
-    Tree tmp =create_tree(tmp,size_tree);
+    Tree tmp;
+    create_tree(tmp,size_tree);
 
     int key = lcg();
     while (!tmp.contains(key)){key = lcg();}
@@ -165,12 +168,13 @@ void search_time(int size_tree){
     printf("The time: %f seconds\n", seconds);
     FILE *file;
     file = fopen("search_time.txt", "a+");
-    fprintf(file, "%d %f\n", size_tree, seconds);
+    fprintf(file, "%d;%f\n", size_tree, seconds);
     fclose(file);
 }
 
 void insert_and_delete_time(int size_tree){
-    Tree tmp =create_tree(tmp,size_tree);
+    Tree tmp;
+    create_tree(tmp,size_tree);
     int key = lcg();
     while (tmp.contains(key)){key = lcg();}
     clock_t start = clock();
@@ -223,8 +227,10 @@ void create_file(int loop){
 
 int main() {
     int loop;
+    Tree tmp;
     cout << "Enter 1 to check task" << endl;
     cout << "Enter 2 to work with tree" << endl;
+    cout << "Enter 3 to create txt file_time" << endl;
     cin >> loop;
     if (loop == 1) {
         vector<int> vec = {};
@@ -236,8 +242,6 @@ int main() {
         return 0;
     }
     if (loop == 2) {
-
-        Tree tmp;
         int m1;
         while (true) {
             m1 = menu();
@@ -264,6 +268,15 @@ int main() {
                     break;
             }
         }
+    }
+    if (loop == 3) {
+        int loop1;
+        cout << "Enter 1 to create file insert_time_full" << endl;
+        cout << "Enter 2 to create file search_time" << endl;
+        cout << "Enter 3 to create file insert_time and delete_time" << endl;
+        cin >> loop1;
+        create_file(loop1);
+        return 0;
     }
 }
 
