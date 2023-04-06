@@ -51,21 +51,19 @@ void create_new_tree(Tree &tmp){
 }
 
 //add new root
-Tree add_root(Tree &tmp){
+void add_root(Tree &tmp){
     int key;
     cout << "Enter the key of root: ";
     key = check();
     tmp.insert(tmp.return_root(),key);
-    return tmp;
 }
 
 //delete root
-Tree delete_root(Tree &tmp){
+void delete_root(Tree &tmp){
     int key;
     cout << "Enter the key of root: ";
     key = check();
-    tmp.erase(key);
-    return tmp;
+    tmp.erase(key, tmp.return_root());
 }
 
 //check existing root
@@ -83,8 +81,6 @@ void check_root(Tree &tmp){
 void print_tree(Tree &tmp){
     tmp.print_Tree(tmp.return_root(),3);
 }
-
-
 
 
 //функция генератор
@@ -154,7 +150,7 @@ void insert_and_delete_time(int size_tree){
 
     while (!tmp.contains(key)){key = lcg();}
     start = clock();
-    tmp.erase(key);
+    tmp.erase(key, tmp.return_root());
     end = clock();
     seconds = (double)(end - start) / CLOCKS_PER_SEC;
     printf("The time: %f seconds\n", seconds);
@@ -198,10 +194,10 @@ int main() {
                 create_new_tree(tmp);
                 break;
             case 2:
-                tmp = add_root(tmp);
+                add_root(tmp);
                 break;
             case 3:
-                tmp = delete_root(tmp);
+                delete_root(tmp);
                 break;
             case 4:
                 check_root(tmp);

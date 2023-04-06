@@ -39,7 +39,7 @@ class Tree {
         Node* insert(struct Node* _root , int key);//вставка элемента
         Node* search(int key,const Node* obj);//проверка наличия элемента
         bool contains(int key);//проверка наличия элемента
-        bool erase(int key);//удаление элемента
+        Node* erase(int key, Node* obj);//удаление элемента
 
 
         Tree& operator=(const Tree& obj);

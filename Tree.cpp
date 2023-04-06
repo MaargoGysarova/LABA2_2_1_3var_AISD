@@ -73,12 +73,9 @@ void Tree::print_Tree(const Node * p,int level)const {
     {
         print_Tree(p->_left,level + 1);
         for(int i = 0;i< level;i++) cout<<"   ";
-        cout << p->_data << endl;
+        cout << "("<<p->_data<<")" << endl;
         print_Tree(p->_right,level + 1);
     }
-
-
-
 }
 
 
@@ -107,30 +104,37 @@ bool Tree::contains(int key) {
     else return false;
 }
 
-bool Tree::erase(int key) {
+Node* Tree::erase(int key,Node* obj) {
     if(!root){
         throw "Root not exist";
     }
-    Node* tmp = search(key,root);
-    if(tmp== nullptr){
-        return false;
+    if(key<obj->_data){
+        obj->_left = erase(key,obj->_left);
     }
-    if(tmp->_left== nullptr && tmp->_right== nullptr){
-        if(tmp->_father->_left==tmp){
-            tmp->_father->_left = nullptr;
-        }
-        else{
-            tmp->_father->_right = nullptr;
-        }
-        delete tmp;
-        tmp = nullptr;
-        return true;
+    else if(key>obj->_data){
+        obj->_right = erase(key,obj->_right);
     }
+    else{
+        if(obj->_left== nullptr){
+            Node* tmp = obj->_right;
+            delete obj;
+            return tmp;
+        }
+        else if(obj->_right== nullptr){
+            Node* tmp = obj->_left;
+            delete obj;
+            return tmp;
+        }
+        Node* tmp = minNode(obj->_right);
+        obj->_data = tmp->_data;
+        obj->_right = erase(tmp->_data,obj->_right);
+    }
+    return obj;
 }
 
 Node *Tree::minNode(Node *obj) {
     Node* tmp = obj;
-    while(tmp->_left!= nullptr){
+    while(tmp && tmp->_left!= nullptr){
         tmp = tmp->_left;
     }
     return tmp;
